@@ -26,10 +26,17 @@ Novas bibliotecas podem ser adicionadas ao projeto, porém já definimos algumas
 
 ## Modelo Relacional do Banco de Dados
 
-Abaixo está o modelo relacional do banco de dados desta aplicação; este modelo deve ser utilizado no desenvolvimento
-da aplicação.
+Abaixo está o modelo relacional do banco de dados, juntamente com o dicionário da base de dados e o arquivo SQL para
+criação da base de dados desta aplicação; este modelo deve ser utilizado no desenvolvimento da aplicação.
 
-<img src="modelo_banco_reserva_veiculos.png" alt="Modelo do Banco de Dados">
+- [Dicionário de Dados](arquivosparaprojeto/dicionario_de_dados.pdf)
+- [Arquivo SQL para criação do banco de dados](arquivosparaprojeto/reserva_veiculos_app_create.sql)
+
+<img src="arquivosparaprojeto/modelo_banco_reserva_veiculos.svg" alt="Modelo do Banco de Dados">
+
+## Requisitos do Projeto
+
+A lista completa de requisitos funcionais do projeto pode ser encontrada [neste arquivo](arquivosparaprojeto/requisitos_funcionais.md).
 
 ## 🛑 Requisitos para executar a aplicação
 
