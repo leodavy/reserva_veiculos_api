@@ -1,0 +1,2 @@
+ALTER TABLE usu_usuario DROP COLUMN usu_nr_id CASCADE;
+ALTER TABLE usu_usuario ADD COLUMN usu_nr_id SERIAL PRIMARY KEY;
