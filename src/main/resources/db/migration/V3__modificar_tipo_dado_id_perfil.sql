@@ -1,0 +1,2 @@
+ALTER TABLE per_perfil DROP COLUMN per_nr_id CASCADE;
+ALTER TABLE per_perfil ADD COLUMN per_nr_id SERIAL PRIMARY KEY;
