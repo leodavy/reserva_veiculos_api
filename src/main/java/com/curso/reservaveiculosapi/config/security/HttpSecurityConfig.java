@@ -30,8 +30,9 @@ public class HttpSecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(HttpMethod.GET, "/primeiro/mms").permitAll()
                             .requestMatchers(HttpMethod.POST, "/usuario", "/usuario/autenticar").permitAll()
-                            .anyRequest()
-                            .permitAll();
+                            .requestMatchers(HttpMethod.POST, "/usuario", "/usuario/cadastrar").permitAll()
+                            .requestMatchers("/admin/**").hasRole("ADMIN")
+                            .anyRequest().authenticated();
                 });
         return http.build();
     }

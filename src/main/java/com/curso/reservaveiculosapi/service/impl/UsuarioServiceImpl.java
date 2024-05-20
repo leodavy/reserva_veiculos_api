@@ -19,6 +19,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Primary
 @Service
 @RequiredArgsConstructor
@@ -38,10 +41,20 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .usuTxNome(usuarioForm.getUsuTxNome())
                 .usuTxLogin(usuarioForm.getUsuTxLogin())
                 .usuTxSenha(senha)
+                .roles(List.of("ROLE_USER"))
                 .build();
         usuarioEntity = usuarioRepository.save(usuarioEntity);
         return usuarioEntity.toDTO();
     }
+
+    @Override
+    public List<UsuarioDTO> listarUsuarios() {
+        List<UsuarioEntity> listaUsuarios = this.usuarioRepository.findAll();
+        return listaUsuarios.stream()
+                .map(UsuarioEntity::toDTO)
+                .collect(Collectors.toList());
+    }
+
     public String autenticar(AutenticacaoForm autenticacaoForm) {
         try {
             this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(autenticacaoForm.login(), autenticacaoForm.senha()));
@@ -51,7 +64,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         UsuarioEntity usuarioEntity = this.usuarioRepository.findUsuarioEntitiesByUsuTxLoginLikeIgnoreCase(autenticacaoForm.login())
                 .orElseThrow();
         JwtPayload jwtPayLoad = new JwtPayload(usuarioEntity.getUsuNrId(), usuarioEntity.getUsuTxNome());
-        return this.jwtUtils.gerarToken((UserDetails) usuarioEntity, jwtPayLoad);
+        return this.jwtUtils.gerarToken(usuarioEntity, jwtPayLoad);
     }
 
 }

@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -20,22 +22,6 @@ public class UsuarioForm {
     private String usuTxLogin;
     @NotBlank(message = "A senha é obrigatória!")
     private String usuTxSenha;
-
-    public UsuarioDTO toDTO() {
-        return UsuarioDTO.builder()
-            .usuNrId(this.usuNrId)
-            .usuTxNome(this.usuTxNome)
-            .usuTxLogin(this.usuTxLogin)
-            .build();
-    }
-    public UsuarioEntity toEntity() {
-        return UsuarioEntity.builder()
-            .usuNrId(this.usuNrId)
-            .usuTxNome(this.usuTxNome)
-            .usuTxLogin(this.usuTxLogin)
-            .usuTxSenha(this.usuTxSenha)
-            .build();
-    }
 }
 
 

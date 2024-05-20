@@ -7,10 +7,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -30,17 +32,23 @@ public class UsuarioEntity implements UserDetails {
     String usuTxLogin;
     @Column(name = "usu_tx_senha")
     String usuTxSenha;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "usu_nr_id"))
+    @Column(name = "role")
+    private List<String> roles;
     public UsuarioDTO toDTO() {
         return UsuarioDTO.builder()
                 .usuNrId(usuNrId)
                 .usuTxNome(usuTxNome)
                 .usuTxLogin(usuTxLogin)
+                .roles(roles)
                 .build();
     }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 
     @Override

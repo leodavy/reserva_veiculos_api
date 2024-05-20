@@ -46,7 +46,7 @@ public class JwtFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-        UserDetails userDetails = (UserDetails) this.usuarioRepository
+        UserDetails userDetails = this.usuarioRepository
                 .findUsuarioEntitiesByUsuTxLoginLikeIgnoreCase(claimsJwt.getPayload().getSubject())
                 .orElseThrow();
         var usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getUsername(), userDetails.getAuthorities());
