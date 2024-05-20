@@ -32,6 +32,7 @@ public class HttpSecurityConfig {
                             .requestMatchers(HttpMethod.POST, "/usuario", "/usuario/autenticar").permitAll()
                             .requestMatchers(HttpMethod.POST, "/usuario", "/usuario/cadastrar").permitAll()
                             .requestMatchers("/admin/**").hasRole("ADMIN")
+                            .requestMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/security", "/swagger-ui.html", "/webjars/**", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
                             .anyRequest().authenticated();
                 });
         return http.build();
