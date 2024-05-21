@@ -32,9 +32,19 @@ public class AdminController {
 
     @PostMapping("/criarPerfil")
     @Operation(summary = "Criar perfil. Requer acesso de administrador", description = "Permite aos administradores criar um perfil")
-    @ApiResponse(responseCode = "200", description = "Perfil criado com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioDTO.class)))
+    @ApiResponse(responseCode = "200", description = "Perfil criado com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PerfilEntity.class)))
     public ResponseEntity<PerfilEntity> createProfile(@RequestBody String perTxNome) {
         PerfilEntity perfil = perfilService.criarPerfil(perTxNome);
         return ResponseEntity.ok(perfil);
     }
+    @PostMapping("/associarPerfilUsuario")
+    @ApiResponse(responseCode = "200", description = "Associação de usuário ao perfil realizada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PerfilEntity.class)))
+    @Operation(summary = "Associar usuário a um perfil. Requer acesso de administrador", description = "Permite aos administradores criar um perfil")
+    public ResponseEntity<String> associatePerfil(@RequestParam long usuNrId, @RequestParam long perNrId) {
+        usuarioService.associarPerfilUsuario(usuNrId, perNrId);
+        return ResponseEntity.ok("Usuário associado ao perfil com sucesso!");
+    }
+
+
+
 }

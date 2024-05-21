@@ -5,9 +5,14 @@ import com.curso.reservaveiculosapi.config.security.jwt.JwtUtils;
 
 import com.curso.reservaveiculosapi.exceptions.PasswordException;
 import com.curso.reservaveiculosapi.model.dto.UsuarioDTO;
+import com.curso.reservaveiculosapi.model.entity.PerfilEntity;
 import com.curso.reservaveiculosapi.model.entity.UsuarioEntity;
+import com.curso.reservaveiculosapi.model.entity.UsuarioPerfilEntity;
+import com.curso.reservaveiculosapi.model.entity.UsuarioPerfilKey;
 import com.curso.reservaveiculosapi.model.forms.AutenticacaoForm;
 import com.curso.reservaveiculosapi.model.forms.UsuarioForm;
+import com.curso.reservaveiculosapi.repository.PerfilRepository;
+import com.curso.reservaveiculosapi.repository.UsuarioPerfilRepository;
 import com.curso.reservaveiculosapi.repository.UsuarioRepository;
 import com.curso.reservaveiculosapi.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Primary
@@ -27,6 +33,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService {
     private final UsuarioRepository usuarioRepository;
+    private final UsuarioPerfilRepository usuarioPerfilRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
@@ -53,6 +60,13 @@ public class UsuarioServiceImpl implements UsuarioService {
         return listaUsuarios.stream()
                 .map(UsuarioEntity::toDTO)
                 .collect(Collectors.toList());
+    }
+    public void associarPerfilUsuario(Long usuNrId, Long perNrId) {
+//        UsuarioPerfilEntity usuarioPerfilEntity = new UsuarioPerfilEntity();
+        UsuarioPerfilKey key = new UsuarioPerfilKey(usuNrId, perNrId);
+        UsuarioPerfilEntity usuarioPerfilEntity = new UsuarioPerfilEntity();
+        usuarioPerfilEntity.setUspUsuarioPerfilKey(key);
+        usuarioPerfilRepository.save(usuarioPerfilEntity);
     }
 
     public String autenticar(AutenticacaoForm autenticacaoForm) {

@@ -16,14 +16,12 @@ public class PerfilServiceImpl implements PerfilService {
 
     private final PerfilRepository perfilRepository;
 
-    @Override
+
     public PerfilEntity criarPerfil(String nome) {
         if(perfilRepository.findByPerTxNome(nome).isPresent()){
             throw new IllegalArgumentException("Esse nome já existe!");
         }
-        PerfilEntity perfil = PerfilEntity.builder()
-                .perTxNome(nome)
-                .build();
+        PerfilEntity perfil = PerfilEntity.builder().perTxNome(nome).build();
         return perfilRepository.save(perfil);
     }
 

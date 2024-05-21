@@ -6,16 +6,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "usp_usuario_perfil", schema = "public")
-public class UsuarioPerfilEntity {
-    @Id
-    @Column(name = "usu_nr_id")
-    long usuNrId;
-    @Column(name = "per_nr_id")
-    long perNrId;
+public class UsuarioPerfilEntity implements Serializable {
+    @EmbeddedId
+    private UsuarioPerfilKey uspUsuarioPerfilKey;
 }

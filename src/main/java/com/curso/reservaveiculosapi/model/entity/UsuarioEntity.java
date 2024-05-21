@@ -36,6 +36,13 @@ public class UsuarioEntity implements UserDetails {
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "usu_nr_id"))
     @Column(name = "role")
     private List<String> roles;
+    @ManyToMany
+    @JoinTable(
+            name = "usp_usuario_perfil",
+            joinColumns = @JoinColumn(name = "usu_nr_id"),
+            inverseJoinColumns = @JoinColumn(name = "per_nr_id")
+    )
+    private List<PerfilEntity> perfis;
     public UsuarioDTO toDTO() {
         return UsuarioDTO.builder()
                 .usuNrId(usuNrId)
