@@ -1,15 +1,18 @@
 package com.curso.reservaveiculosapi.controller;
 
 import com.curso.reservaveiculosapi.model.dto.UsuarioDTO;
+import com.curso.reservaveiculosapi.model.entity.VeiculoEntity;
 import com.curso.reservaveiculosapi.model.forms.AutenticacaoForm;
 import com.curso.reservaveiculosapi.model.forms.UsuarioForm;
 import com.curso.reservaveiculosapi.service.UsuarioService;
+import com.curso.reservaveiculosapi.service.VeiculoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +25,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequiredArgsConstructor
 public class UsuarioController {
     private final UsuarioService usuarioService;
+    private final VeiculoService veiculoService;
 
     @PostMapping("/autenticar")
     @Operation(summary = "Autenticação usuário")
@@ -39,5 +43,10 @@ public class UsuarioController {
     public UsuarioDTO insert(@Valid @RequestBody UsuarioForm usuarioForm) {
         return usuarioService.insert(usuarioForm);
     }
-
+    @PostMapping("/cadastrarVeiculo")
+    @Operation(summary = "Cadastrar veículo", description = "Permite aos usuários cadastrar um veículo no sistema")
+    public ResponseEntity<String> cadastrarVeiculo(@RequestBody VeiculoEntity veiculo) {
+        veiculoService.cadastrarVeiculo(veiculo);
+        return ResponseEntity.ok("Veículo cadastrado com sucesso!");
+    }
 }
