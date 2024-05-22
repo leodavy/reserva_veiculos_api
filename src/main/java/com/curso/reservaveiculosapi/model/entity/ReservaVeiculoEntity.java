@@ -23,11 +23,9 @@ public class ReservaVeiculoEntity {
     private long vusNrId;
     @Column(name = "vus_dt_date")
     @JsonFormat(pattern = "dd/MM/yyyy", timezone = "America/Maceio")
-    private Date vus_dt_date;
-    @Id
+    private Date vusDtDate;
     @Column(name = "vei_nr_id")
     private long veiNrId;
-    @Id
     @Column(name = "usu_nr_id")
     private long usuNrId;
 

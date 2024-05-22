@@ -1,5 +1,6 @@
 package com.curso.reservaveiculosapi.controller;
 
+import com.curso.reservaveiculosapi.model.entity.ReservaVeiculoEntity;
 import com.curso.reservaveiculosapi.model.entity.VeiculoEntity;
 import com.curso.reservaveiculosapi.service.VeiculoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -8,9 +9,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 @RestController
 @Tag(name = "Veículos", description = "Serviços para gerenciar os veículos")
-@RequestMapping("veiculo")
+@RequestMapping("veiculos")
 @RequiredArgsConstructor
 public class VeiculoController {
     private final VeiculoService veiculoService;
@@ -28,6 +31,16 @@ public class VeiculoController {
     ) {
         VeiculoEntity veiculo = veiculoService.atualizarVeiculo(veiculoAtualizado, veiNrId);
         return ResponseEntity.ok(veiculo);
+    }
+
+    @PostMapping("/reservarVeiculo")
+    @Operation(summary = "Reservar veículo", description = "Permite aos usuários reservar um veículo já cadastrado no sistema")
+    public ResponseEntity<ReservaVeiculoEntity> reservarVeiculo(@RequestBody ReservaVeiculoEntity reservaVeiculoEntity) {
+        ReservaVeiculoEntity reservaVeiculo = veiculoService.reservarVeiculo(
+                reservaVeiculoEntity.getVeiNrId(),
+                reservaVeiculoEntity.getUsuNrId(),
+                reservaVeiculoEntity.getVusDtDate());
+        return ResponseEntity.ok(reservaVeiculo);
     }
 
 }

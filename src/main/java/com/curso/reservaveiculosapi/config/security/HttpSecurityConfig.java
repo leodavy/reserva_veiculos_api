@@ -33,8 +33,8 @@ public class HttpSecurityConfig {
                             .requestMatchers(HttpMethod.POST, "/usuario", "/usuario/cadastrar").permitAll()
                             .requestMatchers(HttpMethod.POST,"/usuario/**").authenticated()
                             .requestMatchers(HttpMethod.GET,"/usuario/**").authenticated()
-                            .requestMatchers(HttpMethod.GET,"/veiculo/**").authenticated()
-                            .requestMatchers(HttpMethod.POST,"/veiculo/**").authenticated()
+                            .requestMatchers(HttpMethod.GET,"/veiculos/**").authenticated()
+                            .requestMatchers(HttpMethod.POST,"/veiculos/**").authenticated()
 
                             .requestMatchers("/admin/**").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.POST,"/admin/**").hasRole("ADMIN")

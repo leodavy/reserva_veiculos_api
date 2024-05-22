@@ -1,8 +1,13 @@
 package com.curso.reservaveiculosapi.service;
 
+import com.curso.reservaveiculosapi.model.entity.ReservaVeiculoEntity;
 import com.curso.reservaveiculosapi.model.entity.VeiculoEntity;
+
+import java.util.Date;
 
 public interface VeiculoService {
     void cadastrarVeiculo(VeiculoEntity veiculoEntity);
     VeiculoEntity atualizarVeiculo(VeiculoEntity veiculoEntity, long veiNrId);
+    ReservaVeiculoEntity reservarVeiculo(long veiNrId, long usuNrId, Date vusDtDate);
+
 }
