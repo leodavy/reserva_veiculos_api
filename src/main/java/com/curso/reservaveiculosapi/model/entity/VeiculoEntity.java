@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class VeiculoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "usu_nr_id")
+    @Column(name = "vei_nr_id")
     long veiNrId;
     @Column(name = "vei_tx_nome")
     String veiTxNome;

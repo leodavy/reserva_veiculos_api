@@ -10,8 +10,20 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class VeiculoServiceImpl implements VeiculoService {
     private final VeiculoRepository veiculoRepository;
+
     @Override
     public void cadastrarVeiculo(VeiculoEntity veiculoEntity) {
         veiculoRepository.save(veiculoEntity);
     }
+
+    public VeiculoEntity atualizarVeiculo(VeiculoEntity veiculoAtualizado, long veiNrId) {
+        VeiculoEntity veiculoExistente = veiculoRepository.findById(veiNrId)
+                .orElseThrow(() -> new RuntimeException("Veículo não encontrado, ID: " + veiNrId));
+
+        veiculoExistente.setVeiTxNome(veiculoAtualizado.getVeiTxNome());
+        veiculoExistente.setVeiTxMarca(veiculoAtualizado.getVeiTxMarca());
+        veiculoExistente.setVeiTxTipo(veiculoAtualizado.getVeiTxTipo());
+        return veiculoRepository.save(veiculoExistente);
+    }
 }
+

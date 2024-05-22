@@ -33,6 +33,9 @@ public class HttpSecurityConfig {
                             .requestMatchers(HttpMethod.POST, "/usuario", "/usuario/cadastrar").permitAll()
                             .requestMatchers(HttpMethod.POST,"/usuario/**").authenticated()
                             .requestMatchers(HttpMethod.GET,"/usuario/**").authenticated()
+                            .requestMatchers(HttpMethod.GET,"/veiculo/**").authenticated()
+                            .requestMatchers(HttpMethod.POST,"/veiculo/**").authenticated()
+
                             .requestMatchers("/admin/**").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.POST,"/admin/**").hasRole("ADMIN")
                             .requestMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/security", "/swagger-ui.html", "/webjars/**", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
