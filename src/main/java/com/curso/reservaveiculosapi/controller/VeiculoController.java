@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
@@ -41,6 +42,16 @@ public class VeiculoController {
                 reservaVeiculoEntity.getUsuNrId(),
                 reservaVeiculoEntity.getVusDtDate());
         return ResponseEntity.ok(reservaVeiculo);
+    }
+    @PostMapping("/{veiNrId}/adicionarImagem")
+    @Operation(summary = "Adicionar imagens ao veículo", description = "Permite aos usuários adicionar uma imagem ao veículo")
+    public ResponseEntity<String> addImageToVeiculo(@PathVariable Long veiNrId, @RequestParam("image") MultipartFile imagem) {
+        try {
+            veiculoService.adicionarImagemVeiculo(veiNrId, imagem);
+            return ResponseEntity.ok("Imagem adicionada com sucesso!");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }

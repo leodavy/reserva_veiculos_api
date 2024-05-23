@@ -5,9 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
-
-import java.sql.Blob;
 
 @Data
 @Builder
@@ -22,9 +19,9 @@ public class ImagemVeiculoEntity {
     private long imvNrId;
     @Column(name = "imv_tx_nome")
     private String imvTxNome;
-    @Lob
-    @Column(name = "imv_bt_bytes")
-    private byte[] imbBtBytes;
+
+    @Column(name = "imv_bt_bytes", columnDefinition = "bytea")
+    private byte[] imvBtBytes;
     @Column(name = "imv_tx_extensao")
     private String imvTxExtensao;
     @Column(name = "vei_nr_id")
