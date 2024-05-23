@@ -29,7 +29,7 @@ public class VeiculoServiceImpl implements VeiculoService {
     public void cadastrarVeiculo(VeiculoEntity veiculoEntity) {
         veiculoRepository.save(veiculoEntity);
     }
-
+    @Transactional
     public VeiculoEntity atualizarVeiculo(VeiculoEntity veiculoAtualizado, long veiNrId) {
         VeiculoEntity veiculoExistente = veiculoRepository.findById(veiNrId)
                 .orElseThrow(() -> new RuntimeException("Veículo não encontrado, ID: " + veiNrId));

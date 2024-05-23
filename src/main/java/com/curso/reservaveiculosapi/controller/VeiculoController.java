@@ -27,7 +27,7 @@ public class VeiculoController {
         return ResponseEntity.ok("Veículo cadastrado com sucesso!");
     }
 
-    @PostMapping("/{veiNrId}/atualizarVeiculo")
+    @PutMapping("/{veiNrId}/atualizarVeiculo")
     @Operation(summary = "Atualizar veículo", description = "Permite aos usuários atualizar um veículo já cadastrado no sistema")
     public ResponseEntity<VeiculoEntity> atualizarVeiculo(
             @PathVariable Long veiNrId,
