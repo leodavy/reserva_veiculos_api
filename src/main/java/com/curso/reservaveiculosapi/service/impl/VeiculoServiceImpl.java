@@ -9,10 +9,12 @@ import com.curso.reservaveiculosapi.repository.VeiculoRepository;
 import com.curso.reservaveiculosapi.service.VeiculoService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.FileNameMap;
 import java.util.Date;
 import java.util.List;
 
@@ -65,6 +67,21 @@ public class VeiculoServiceImpl implements VeiculoService {
                 .build();
         imagemVeiculoRepository.save(imagemVeiculoEntity);
     }
+    public void atualizarImagemVeiculo(Long veiNrId, Long imvNrId, MultipartFile novaImagem) throws RuntimeException {
+        VeiculoEntity veiculoEntity = veiculoRepository.findById(veiNrId).orElseThrow(() -> new RuntimeException("Veículo não encontrado: " + veiNrId));
+        ImagemVeiculoEntity imagemVeiculoEntity = imagemVeiculoRepository.findById(imvNrId)
+                .orElseThrow(() -> new RuntimeException("Imagem não encontrada: " + imvNrId));
+        try {
+            byte[] bytes = novaImagem.getBytes();
+            imagemVeiculoEntity.setImvBtBytes(bytes);
+            imagemVeiculoEntity.setImvTxNome(novaImagem.getOriginalFilename());
+            imagemVeiculoEntity.setImvTxExtensao(FilenameUtils.getExtension(novaImagem.getOriginalFilename()));
+            imagemVeiculoRepository.save(imagemVeiculoEntity);
+        } catch (IOException e) {
+            throw new RuntimeException("Falha ao ler arquivo de imagem", e);
+        }
+    }
+
     @Transactional
     public void excluirVeiculo(Long veiNrId) {
         imagemVeiculoRepository.deleteByVeiNrId(veiNrId);

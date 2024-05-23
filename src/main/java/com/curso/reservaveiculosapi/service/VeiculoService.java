@@ -15,6 +15,6 @@ public interface VeiculoService {
 
     void adicionarImagemVeiculo(Long veiNrId, MultipartFile imagemVeiculo) throws IOException;
 
-
+    void atualizarImagemVeiculo(Long veiNrId, Long imvNrId, MultipartFile imagemVeiculo) throws RuntimeException;
     void excluirVeiculo(Long veiNrId);
 }

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Date;
 
 @RestController
@@ -18,12 +19,14 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class VeiculoController {
     private final VeiculoService veiculoService;
+
     @PostMapping("/cadastrarVeiculo")
     @Operation(summary = "Cadastrar veículo", description = "Permite aos usuários cadastrar um veículo no sistema")
     public ResponseEntity<String> cadastrarVeiculo(@RequestBody VeiculoEntity veiculo) {
         veiculoService.cadastrarVeiculo(veiculo);
         return ResponseEntity.ok("Veículo cadastrado com sucesso!");
     }
+
     @PostMapping("/{veiNrId}/atualizarVeiculo")
     @Operation(summary = "Atualizar veículo", description = "Permite aos usuários atualizar um veículo já cadastrado no sistema")
     public ResponseEntity<VeiculoEntity> atualizarVeiculo(
@@ -43,9 +46,10 @@ public class VeiculoController {
                 reservaVeiculoEntity.getVusDtDate());
         return ResponseEntity.ok(reservaVeiculo);
     }
+
     @PostMapping("/{veiNrId}/adicionarImagem")
     @Operation(summary = "Adicionar imagens ao veículo", description = "Permite aos usuários adicionar uma imagem ao veículo")
-    public ResponseEntity<String> addImageToVeiculo(@PathVariable Long veiNrId, @RequestParam("image") MultipartFile imagem) {
+    public ResponseEntity<String> addImageToVeiculo(@PathVariable Long veiNrId, @RequestParam("imagem") MultipartFile imagem) {
         try {
             veiculoService.adicionarImagemVeiculo(veiNrId, imagem);
             return ResponseEntity.ok("Imagem adicionada com sucesso!");
@@ -53,10 +57,25 @@ public class VeiculoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @DeleteMapping("/excluirVeiculo/{veiNrId}")
+    @Operation(summary = "Excluir Veículo", description = "Exclui um veículo do sistema, juntamente com suas imagens e reservas")
     public ResponseEntity<Void> excluirVeiculo(@PathVariable Long veiNrId) {
         veiculoService.excluirVeiculo(veiNrId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/atualizarImagemVeiculo/{veiculoId}/{imvNrId}")
+    @Operation(summary = "Atualizar imagem do Veículo", description = "Substitui uma imagem específica de um veículo")
+    public ResponseEntity<String> atualizarImagemVeiculo(@PathVariable Long veiculoId,
+                                                         @PathVariable Long imvNrId,
+                                                         @RequestParam("imagem") MultipartFile imagem) {
+        try {
+            veiculoService.atualizarImagemVeiculo(veiculoId, imvNrId, imagem);
+            return ResponseEntity.ok("Imagem do veículo atualizada com sucesso.");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao atualizar imagem do veículo: " + e.getMessage());
+        }
     }
 
 }
