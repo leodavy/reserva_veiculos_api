@@ -81,6 +81,12 @@ public class VeiculoServiceImpl implements VeiculoService {
             throw new RuntimeException("Falha ao ler arquivo de imagem", e);
         }
     }
+    @Transactional
+    public void excluirImagemVeiculo(Long veiNrId, Long imvNrId ) throws RuntimeException {
+        ImagemVeiculoEntity imagemVeiculoEntity = imagemVeiculoRepository.findById(imvNrId)
+                .orElseThrow(() -> new RuntimeException("Imagem não encontrada: " + imvNrId));
+        imagemVeiculoRepository.delete(imagemVeiculoEntity);
+    }
 
     @Transactional
     public void excluirVeiculo(Long veiNrId) {

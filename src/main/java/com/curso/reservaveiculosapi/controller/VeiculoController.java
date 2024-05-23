@@ -77,5 +77,15 @@ public class VeiculoController {
             return ResponseEntity.badRequest().body("Erro ao atualizar imagem do veículo: " + e.getMessage());
         }
     }
+    @DeleteMapping("/excluirImagemVeiculo/{veiNrId}/{imvNrId}")
+    @Operation(summary = "Excluir imagem do Veículo", description = "Exclui uma imagem específica de um veículo")
+    public ResponseEntity<String> excluirImagemVeiculo(@PathVariable Long veiNrId,@PathVariable Long imvNrId) {
+        try {
+            veiculoService.excluirImagemVeiculo(veiNrId, imvNrId);
+            return ResponseEntity.ok("Imagem do veículo excluída com sucesso.");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao excluir imagem do veículo: " + e.getMessage());
+        }
+    }
 
 }

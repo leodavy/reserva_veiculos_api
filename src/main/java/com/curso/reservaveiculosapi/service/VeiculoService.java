@@ -14,7 +14,7 @@ public interface VeiculoService {
     ReservaVeiculoEntity reservarVeiculo(long veiNrId, long usuNrId, Date vusDtDate);
 
     void adicionarImagemVeiculo(Long veiNrId, MultipartFile imagemVeiculo) throws IOException;
-
     void atualizarImagemVeiculo(Long veiNrId, Long imvNrId, MultipartFile imagemVeiculo) throws RuntimeException;
+    void excluirImagemVeiculo(Long veiNrId, Long imvNrId) throws RuntimeException;
     void excluirVeiculo(Long veiNrId);
 }
