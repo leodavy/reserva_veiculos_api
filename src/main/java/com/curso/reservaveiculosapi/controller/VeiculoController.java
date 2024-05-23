@@ -53,5 +53,10 @@ public class VeiculoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @DeleteMapping("/excluirVeiculo/{veiNrId}")
+    public ResponseEntity<Void> excluirVeiculo(@PathVariable Long veiNrId) {
+        veiculoService.excluirVeiculo(veiNrId);
+        return ResponseEntity.noContent().build();
+    }
 
 }

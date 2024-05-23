@@ -35,6 +35,7 @@ public class HttpSecurityConfig {
                             .requestMatchers(HttpMethod.GET,"/usuario/**").authenticated()
                             .requestMatchers(HttpMethod.GET,"/veiculos/**").authenticated()
                             .requestMatchers(HttpMethod.POST,"/veiculos/**").authenticated()
+                            .requestMatchers(HttpMethod.DELETE,"/veiculos/**").authenticated()
 
                             .requestMatchers("/admin/**").hasRole("ADMIN")
                             .requestMatchers(HttpMethod.POST,"/admin/**").hasRole("ADMIN")

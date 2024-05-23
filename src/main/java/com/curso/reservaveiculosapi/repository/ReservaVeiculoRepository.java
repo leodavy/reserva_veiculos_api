@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReservaVeiculoRepository extends JpaRepository<ReservaVeiculoEntity, Long> {
+    void deleteByVeiNrId(long veiNrId);
 }

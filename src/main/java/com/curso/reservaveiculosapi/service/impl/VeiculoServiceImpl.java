@@ -7,6 +7,7 @@ import com.curso.reservaveiculosapi.repository.ImagemVeiculoRepository;
 import com.curso.reservaveiculosapi.repository.ReservaVeiculoRepository;
 import com.curso.reservaveiculosapi.repository.VeiculoRepository;
 import com.curso.reservaveiculosapi.service.VeiculoService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -64,6 +65,13 @@ public class VeiculoServiceImpl implements VeiculoService {
                 .build();
         imagemVeiculoRepository.save(imagemVeiculoEntity);
     }
+    @Transactional
+    public void excluirVeiculo(Long veiNrId) {
+        imagemVeiculoRepository.deleteByVeiNrId(veiNrId);
+        reservaVeiculoRepository.deleteByVeiNrId(veiNrId);
+        veiculoRepository.deleteById(veiNrId);
+    }
+
 }
 
 
