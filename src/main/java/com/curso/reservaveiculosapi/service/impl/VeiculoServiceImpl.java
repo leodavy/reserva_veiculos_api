@@ -50,6 +50,11 @@ public class VeiculoServiceImpl implements VeiculoService {
         return reservaVeiculoRepository.save(reservaVeiculo);
     }
 
+
+    public List<VeiculoEntity> listarVeiculos() {
+        return veiculoRepository.findAll();
+    }
+
     public void adicionarImagemVeiculo(Long veiNrId, MultipartFile imagemVeiculo) throws IOException {
         VeiculoEntity veiculoEntity = veiculoRepository.findById(veiNrId).orElseThrow(() -> new RuntimeException("Veículo não encontrado: " + veiNrId));
         List<ImagemVeiculoEntity> existingImages = imagemVeiculoRepository.findByVeiNrId(veiNrId);

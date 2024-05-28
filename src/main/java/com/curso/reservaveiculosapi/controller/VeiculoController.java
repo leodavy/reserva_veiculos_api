@@ -1,17 +1,20 @@
 package com.curso.reservaveiculosapi.controller;
 
+import com.curso.reservaveiculosapi.model.dto.UsuarioDTO;
 import com.curso.reservaveiculosapi.model.entity.ReservaVeiculoEntity;
 import com.curso.reservaveiculosapi.model.entity.VeiculoEntity;
 import com.curso.reservaveiculosapi.service.VeiculoService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.Date;
+import java.util.List;
 
 @RestController
 @Tag(name = "Veículos", description = "Serviços para gerenciar os veículos")
@@ -35,6 +38,13 @@ public class VeiculoController {
     ) {
         VeiculoEntity veiculo = veiculoService.atualizarVeiculo(veiculoAtualizado, veiNrId);
         return ResponseEntity.ok(veiculo);
+    }
+
+    @GetMapping("/listarVeiculos")
+    @Operation(summary = "Listagem de todos os usuários. Requer acesso de administrador", description = "Permite aos administradores listar todos os usuários")
+    @ApiResponse(responseCode = "200", description = "Usuários listados com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioDTO.class)))
+    public List<VeiculoEntity> listarUsuarios() {
+        return veiculoService.listarVeiculos();
     }
 
     @PostMapping("/reservarVeiculo")
