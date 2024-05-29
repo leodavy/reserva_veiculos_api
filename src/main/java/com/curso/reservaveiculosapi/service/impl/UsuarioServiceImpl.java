@@ -69,6 +69,10 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuarioPerfilRepository.save(usuarioPerfilEntity);
     }
 
+    public Optional<UsuarioEntity> findById(Long usuNrId) {
+        return usuarioRepository.findById(usuNrId);
+    }
+
     public String autenticar(AutenticacaoForm autenticacaoForm) {
         try {
             this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(autenticacaoForm.login(), autenticacaoForm.senha()));
@@ -77,7 +81,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         UsuarioEntity usuarioEntity = this.usuarioRepository.findUsuarioEntitiesByUsuTxLoginLikeIgnoreCase(autenticacaoForm.login())
                 .orElseThrow();
-        JwtPayload jwtPayLoad = new JwtPayload(usuarioEntity.getUsuNrId(), usuarioEntity.getUsuTxNome());
+        JwtPayload jwtPayLoad = new JwtPayload(usuarioEntity.getUsuNrId(), usuarioEntity.getUsuTxNome(), usuarioEntity.getRoles());
         return this.jwtUtils.gerarToken(usuarioEntity, jwtPayLoad);
     }
 

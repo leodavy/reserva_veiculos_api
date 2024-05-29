@@ -11,5 +11,7 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
 
     Optional<UsuarioEntity> findUsuarioEntitiesByUsuTxLoginLikeIgnoreCase(String usuTxLogin);
 
+    public Optional<UsuarioEntity> findById(Long usuNrId);
+
 
 }

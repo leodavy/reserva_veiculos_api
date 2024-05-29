@@ -1,7 +1,10 @@
 package com.curso.reservaveiculosapi.config.security.jwt;
 
+import java.util.List;
+
 public record JwtPayload(
-        Long id,
-        String nome
+        Long usuNrId,
+        String usuTxNome,
+        List<String>roles
 ) {
 }

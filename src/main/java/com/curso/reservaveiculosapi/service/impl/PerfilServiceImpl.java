@@ -18,7 +18,7 @@ public class PerfilServiceImpl implements PerfilService {
 
     public PerfilEntity criarPerfil(String nome) {
         if(perfilRepository.findByPerTxNome(nome).isPresent()){
-            throw new IllegalArgumentException("Esse nome já existe!");
+            throw new IllegalArgumentException("Esse usuNrNome já existe!");
         }
         System.out.println("criando perfil: " + nome);
         PerfilEntity perfil = PerfilEntity.builder().perTxNome(nome).build();

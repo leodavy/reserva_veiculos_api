@@ -1,6 +1,7 @@
 package com.curso.reservaveiculosapi.controller;
 
 import com.curso.reservaveiculosapi.model.dto.UsuarioDTO;
+import com.curso.reservaveiculosapi.model.entity.UsuarioEntity;
 import com.curso.reservaveiculosapi.model.entity.VeiculoEntity;
 import com.curso.reservaveiculosapi.model.forms.AutenticacaoForm;
 import com.curso.reservaveiculosapi.model.forms.UsuarioForm;
@@ -13,11 +14,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import java.util.Optional;
 
 @RestController
 @Tag(name = "Usuário", description = "Serviços para gerenciar os usuários")
@@ -44,4 +44,9 @@ public class UsuarioController {
         return usuarioService.insert(usuarioForm);
     }
 
+    @GetMapping("/{usuNrId}")
+    public ResponseEntity<UsuarioEntity> findById(@PathVariable Long usuNrId) {
+        Optional<UsuarioEntity> userOptional = usuarioService.findById(usuNrId);
+        return userOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
 }
