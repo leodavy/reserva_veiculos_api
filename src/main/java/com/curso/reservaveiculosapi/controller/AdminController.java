@@ -46,6 +46,13 @@ public class AdminController {
         return ResponseEntity.ok("Usuário associado ao perfil com sucesso!");
     }
 
+    @GetMapping("/listarPerfis")
+    @Operation(summary = "Listagem de todos os perfis. Requer acesso de administrador", description = "Permite aos administradores criar um perfil")
+    @ApiResponse(responseCode = "200", description = "Perfis listados com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PerfilEntity.class)))
+    public List<PerfilEntity> listarPerfis() {
+        return perfilService.getAllPerfis();
+    }
+
 
 
 }
