@@ -2,7 +2,7 @@ package com.curso.reservaveiculosapi.controller;
 
 import com.curso.reservaveiculosapi.model.dto.UsuarioDTO;
 import com.curso.reservaveiculosapi.model.entity.PerfilEntity;
-import com.curso.reservaveiculosapi.model.entity.UsuarioEntity;
+import com.curso.reservaveiculosapi.model.entity.UsuarioPerfilEntity;
 import com.curso.reservaveiculosapi.service.PerfilService;
 import com.curso.reservaveiculosapi.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,7 +42,7 @@ public class AdminController {
     }
     @PostMapping("/associarPerfilUsuario")
     @ApiResponse(responseCode = "200", description = "Associação de usuário ao perfil realizada com sucesso", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PerfilEntity.class)))
-    @Operation(summary = "Associar usuário a um perfil. Requer acesso de administrador", description = "Permite aos administradores criar um perfil")
+    @Operation(summary = "Associar usuário a um perfil. Requer acesso de administrador", description = "Permite aos administradores associar um usuário a um perfil")
     public ResponseEntity<String> associatePerfil(@RequestParam long usuNrId, @RequestParam long perNrId) {
         usuarioService.associarPerfilUsuario(usuNrId, perNrId);
         return ResponseEntity.ok("Usuário associado ao perfil com sucesso!");
@@ -69,6 +69,18 @@ public class AdminController {
         return userOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-
+    @GetMapping("/perfil/{perNrId}/listarUsuarios")
+    @Operation(
+            summary = "Listar todos os usuários associados ao perfil.",
+            description = "Permite aos administradores listar todos os usuários associados ao Perfil"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Usuários listados com sucesso",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = UsuarioPerfilEntity.class))
+    )
+    public List<UsuarioPerfilEntity> listarUsuariosAssociados(@PathVariable long perNrId) {
+        return perfilService.getAllUsuariosAssociados(perNrId);
+    }
 
 }

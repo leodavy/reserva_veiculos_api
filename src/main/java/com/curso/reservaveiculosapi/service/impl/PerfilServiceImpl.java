@@ -1,10 +1,11 @@
 package com.curso.reservaveiculosapi.service.impl;
 
 import com.curso.reservaveiculosapi.model.entity.PerfilEntity;
+import com.curso.reservaveiculosapi.model.entity.UsuarioPerfilEntity;
 import com.curso.reservaveiculosapi.repository.PerfilRepository;
+import com.curso.reservaveiculosapi.repository.UsuarioPerfilRepository;
 import com.curso.reservaveiculosapi.service.PerfilService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Optional;
 public class PerfilServiceImpl implements PerfilService {
 
     private final PerfilRepository perfilRepository;
+    private final UsuarioPerfilRepository usuarioPerfilRepository;
 
 
     public PerfilEntity criarPerfil(String nome) {
@@ -34,7 +36,9 @@ public class PerfilServiceImpl implements PerfilService {
     public long getTotalPerfis() {
         return perfilRepository.countPerfis();
     }
-
+    public List<UsuarioPerfilEntity> getAllUsuariosAssociados(long perNrId) {
+        return usuarioPerfilRepository.findAllUsuariosAssociados(perNrId);
+    }
 
 
 }
