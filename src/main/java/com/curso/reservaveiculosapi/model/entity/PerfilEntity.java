@@ -21,7 +21,5 @@ public class PerfilEntity {
     private long perNrId;
     @Column(name = "per_tx_nome")
     private String perTxNome;
-    @ManyToMany(mappedBy = "perfis")
-    private List<UsuarioEntity> usuarios;
 }
 
