@@ -85,4 +85,8 @@ public class UsuarioServiceImpl implements UsuarioService {
         return this.jwtUtils.gerarToken(usuarioEntity, jwtPayLoad);
     }
 
+    public long getTotalUsuarios() {
+        return usuarioRepository.countUsuarios();
+    }
+
 }

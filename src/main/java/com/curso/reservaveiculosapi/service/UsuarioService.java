@@ -15,4 +15,6 @@ public interface UsuarioService {
     void associarPerfilUsuario(Long usuNrId, Long perNrId);
 
     Optional<UsuarioEntity> findById(Long usuNrId);
+
+    public long getTotalUsuarios();
 }

@@ -53,6 +53,11 @@ public class AdminController {
         return perfilService.getAllPerfis();
     }
 
+    @GetMapping("/totalUsuarios")
+    public long getTotalUsuarios() {
+        return usuarioService.getTotalUsuarios();
+    }
+
 
 
 }
