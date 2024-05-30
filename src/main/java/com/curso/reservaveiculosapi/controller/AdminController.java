@@ -2,6 +2,7 @@ package com.curso.reservaveiculosapi.controller;
 
 import com.curso.reservaveiculosapi.model.dto.UsuarioDTO;
 import com.curso.reservaveiculosapi.model.entity.PerfilEntity;
+import com.curso.reservaveiculosapi.model.entity.UsuarioEntity;
 import com.curso.reservaveiculosapi.service.PerfilService;
 import com.curso.reservaveiculosapi.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @Tag(name = "Admin", description = "Serviço para painel de administração")
@@ -59,6 +61,12 @@ public class AdminController {
     @GetMapping("/totalPerfis")
     public long getTotalPerfis() {
         return perfilService.getTotalPerfis();
+    }
+
+    @GetMapping("/perfil/{perNrId}")
+    public ResponseEntity<PerfilEntity> getPerfilById(@PathVariable Long perNrId) {
+        Optional<PerfilEntity> userOptional = perfilService.getPerfilById(perNrId);
+        return userOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 
