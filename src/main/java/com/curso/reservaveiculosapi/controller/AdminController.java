@@ -52,10 +52,13 @@ public class AdminController {
     public List<PerfilEntity> listarPerfis() {
         return perfilService.getAllPerfis();
     }
-
     @GetMapping("/totalUsuarios")
     public long getTotalUsuarios() {
         return usuarioService.getTotalUsuarios();
+    }
+    @GetMapping("/totalPerfis")
+    public long getTotalPerfis() {
+        return perfilService.getTotalPerfis();
     }
 
 

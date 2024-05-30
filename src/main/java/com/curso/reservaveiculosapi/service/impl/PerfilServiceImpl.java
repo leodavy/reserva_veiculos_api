@@ -31,5 +31,10 @@ public class PerfilServiceImpl implements PerfilService {
     public Optional<PerfilEntity> getPerfilById(long perNrId) {
         return perfilRepository.findById(perNrId);
     }
+    public long getTotalPerfis() {
+        return perfilRepository.countPerfis();
+    }
+
+
 
 }

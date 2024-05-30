@@ -9,5 +9,6 @@ public interface PerfilService {
     PerfilEntity criarPerfil(String nome);
     List<PerfilEntity> getAllPerfis();
     Optional<PerfilEntity> getPerfilById(long perNrId);
+    public long getTotalPerfis();
 
 }
