@@ -29,10 +29,10 @@ public class VeiculoServiceImpl implements VeiculoService {
     public void cadastrarVeiculo(VeiculoEntity veiculoEntity) {
         veiculoRepository.save(veiculoEntity);
     }
+
     @Transactional
     public VeiculoEntity atualizarVeiculo(VeiculoEntity veiculoAtualizado, long veiNrId) {
-        VeiculoEntity veiculoExistente = veiculoRepository.findById(veiNrId)
-                .orElseThrow(() -> new RuntimeException("Veículo não encontrado, ID: " + veiNrId));
+        VeiculoEntity veiculoExistente = veiculoRepository.findById(veiNrId).orElseThrow(() -> new RuntimeException("Veículo não encontrado, ID: " + veiNrId));
 
         veiculoExistente.setVeiTxNome(veiculoAtualizado.getVeiTxNome());
         veiculoExistente.setVeiTxMarca(veiculoAtualizado.getVeiTxMarca());
@@ -42,11 +42,7 @@ public class VeiculoServiceImpl implements VeiculoService {
 
 
     public ReservaVeiculoEntity reservarVeiculo(long veiNrId, long usuNrId, Date vusDtDate) {
-        ReservaVeiculoEntity reservaVeiculo = ReservaVeiculoEntity.builder()
-                .veiNrId(veiNrId)
-                .usuNrId(usuNrId)
-                .vusDtDate(vusDtDate)
-                .build();
+        ReservaVeiculoEntity reservaVeiculo = ReservaVeiculoEntity.builder().veiNrId(veiNrId).usuNrId(usuNrId).vusDtDate(vusDtDate).build();
         return reservaVeiculoRepository.save(reservaVeiculo);
     }
 
@@ -58,24 +54,19 @@ public class VeiculoServiceImpl implements VeiculoService {
     public void adicionarImagemVeiculo(Long veiNrId, MultipartFile imagemVeiculo) throws IOException {
         VeiculoEntity veiculoEntity = veiculoRepository.findById(veiNrId).orElseThrow(() -> new RuntimeException("Veículo não encontrado: " + veiNrId));
         List<ImagemVeiculoEntity> existingImages = imagemVeiculoRepository.findByVeiNrId(veiNrId);
-        if(imagemVeiculo.isEmpty()) {
+        if (imagemVeiculo.isEmpty()) {
             throw new RuntimeException("Nenhuma imagem selecionada");
         }
         if (existingImages.size() >= 6) {
             throw new RuntimeException("O veículo pode ter no máximo 6 imagens");
         }
-        ImagemVeiculoEntity imagemVeiculoEntity = ImagemVeiculoEntity.builder()
-                .imvTxNome(imagemVeiculo.getOriginalFilename())
-                .imvBtBytes(imagemVeiculo.getBytes())
-                .imvTxExtensao(imagemVeiculo.getContentType())
-                .veiNrId(veiNrId)
-                .build();
+        ImagemVeiculoEntity imagemVeiculoEntity = ImagemVeiculoEntity.builder().imvTxNome(imagemVeiculo.getOriginalFilename()).imvBtBytes(imagemVeiculo.getBytes()).imvTxExtensao(imagemVeiculo.getContentType()).veiNrId(veiNrId).build();
         imagemVeiculoRepository.save(imagemVeiculoEntity);
     }
+
     public void atualizarImagemVeiculo(Long veiNrId, Long imvNrId, MultipartFile novaImagem) throws RuntimeException {
         VeiculoEntity veiculoEntity = veiculoRepository.findById(veiNrId).orElseThrow(() -> new RuntimeException("Veículo não encontrado: " + veiNrId));
-        ImagemVeiculoEntity imagemVeiculoEntity = imagemVeiculoRepository.findById(imvNrId)
-                .orElseThrow(() -> new RuntimeException("Imagem não encontrada: " + imvNrId));
+        ImagemVeiculoEntity imagemVeiculoEntity = imagemVeiculoRepository.findById(imvNrId).orElseThrow(() -> new RuntimeException("Imagem não encontrada: " + imvNrId));
         try {
             byte[] bytes = novaImagem.getBytes();
             imagemVeiculoEntity.setImvBtBytes(bytes);
@@ -86,10 +77,10 @@ public class VeiculoServiceImpl implements VeiculoService {
             throw new RuntimeException("Falha ao ler arquivo de imagem", e);
         }
     }
+
     @Transactional
-    public void excluirImagemVeiculo(Long veiNrId, Long imvNrId ) throws RuntimeException {
-        ImagemVeiculoEntity imagemVeiculoEntity = imagemVeiculoRepository.findById(imvNrId)
-                .orElseThrow(() -> new RuntimeException("Imagem não encontrada: " + imvNrId));
+    public void excluirImagemVeiculo(Long veiNrId, Long imvNrId) throws RuntimeException {
+        ImagemVeiculoEntity imagemVeiculoEntity = imagemVeiculoRepository.findById(imvNrId).orElseThrow(() -> new RuntimeException("Imagem não encontrada: " + imvNrId));
         imagemVeiculoRepository.delete(imagemVeiculoEntity);
     }
 
@@ -98,6 +89,15 @@ public class VeiculoServiceImpl implements VeiculoService {
         imagemVeiculoRepository.deleteByVeiNrId(veiNrId);
         reservaVeiculoRepository.deleteByVeiNrId(veiNrId);
         veiculoRepository.deleteById(veiNrId);
+    }
+
+
+    public List<ImagemVeiculoEntity> getImagensByVeiculoId(Long veiNrId) {
+        return imagemVeiculoRepository.findByVeiNrId(veiNrId);
+    }
+
+    public ImagemVeiculoEntity getImagemById(Long imvNrId) {
+        return imagemVeiculoRepository.findById(imvNrId).orElseThrow(() -> new RuntimeException("Imagem não encontrada: " + imvNrId));
     }
 
 }

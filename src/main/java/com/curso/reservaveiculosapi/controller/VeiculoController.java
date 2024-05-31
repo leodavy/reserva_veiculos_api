@@ -1,6 +1,7 @@
 package com.curso.reservaveiculosapi.controller;
 
 import com.curso.reservaveiculosapi.model.dto.UsuarioDTO;
+import com.curso.reservaveiculosapi.model.entity.ImagemVeiculoEntity;
 import com.curso.reservaveiculosapi.model.entity.ReservaVeiculoEntity;
 import com.curso.reservaveiculosapi.model.entity.VeiculoEntity;
 import com.curso.reservaveiculosapi.service.VeiculoService;
@@ -98,4 +99,16 @@ public class VeiculoController {
         }
     }
 
+    @GetMapping("/{veiNrId}/imagens")
+    @Operation(summary = "Listar todas as imagens de um veículo", description = "Permite aos usuários listar todas as imagens de um veículo")
+    public ResponseEntity<List<ImagemVeiculoEntity>> listarImagensPorVeiculo(@PathVariable Long veiNrId) {
+        List<ImagemVeiculoEntity> imagens = veiculoService.getImagensByVeiculoId(veiNrId);
+        return ResponseEntity.ok(imagens);
+    }
+    @GetMapping("/imagens/{imvNrId}")
+    @Operation(summary = "Buscar uma imagem específica pelo seu id ID", description = "Permite aos usuários buscar uma imagem específica a partir do seu ID")
+    public ResponseEntity<ImagemVeiculoEntity> buscarImagemPorId(@PathVariable Long imvNrId) {
+        ImagemVeiculoEntity imagem = veiculoService.getImagemById(imvNrId);
+        return ResponseEntity.ok(imagem);
+    }
 }

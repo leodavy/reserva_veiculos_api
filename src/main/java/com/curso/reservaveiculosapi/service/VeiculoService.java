@@ -1,6 +1,7 @@
 package com.curso.reservaveiculosapi.service;
 
 import com.curso.reservaveiculosapi.model.dto.UsuarioDTO;
+import com.curso.reservaveiculosapi.model.entity.ImagemVeiculoEntity;
 import com.curso.reservaveiculosapi.model.entity.ReservaVeiculoEntity;
 import com.curso.reservaveiculosapi.model.entity.VeiculoEntity;
 import jakarta.transaction.Transactional;
@@ -19,4 +20,7 @@ public interface VeiculoService {
     void atualizarImagemVeiculo(Long veiNrId, Long imvNrId, MultipartFile imagemVeiculo) throws RuntimeException;
     void excluirImagemVeiculo(Long veiNrId, Long imvNrId) throws RuntimeException;
     void excluirVeiculo(Long veiNrId);
+    List<ImagemVeiculoEntity> getImagensByVeiculoId(Long veiNrId);
+    public ImagemVeiculoEntity getImagemById(Long imvNrId);
+
 }

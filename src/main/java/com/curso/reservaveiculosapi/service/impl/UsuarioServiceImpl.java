@@ -62,7 +62,6 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .collect(Collectors.toList());
     }
     public void associarPerfilUsuario(Long usuNrId, Long perNrId) {
-//        UsuarioPerfilEntity usuarioPerfilEntity = new UsuarioPerfilEntity();
         UsuarioPerfilKey key = new UsuarioPerfilKey(usuNrId, perNrId);
         UsuarioPerfilEntity usuarioPerfilEntity = new UsuarioPerfilEntity();
         usuarioPerfilEntity.setUspUsuarioPerfilKey(key);

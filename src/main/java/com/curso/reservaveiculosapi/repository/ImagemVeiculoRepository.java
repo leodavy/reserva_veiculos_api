@@ -10,4 +10,5 @@ import java.util.List;
 public interface ImagemVeiculoRepository extends JpaRepository<ImagemVeiculoEntity, Long> {
     List<ImagemVeiculoEntity> findByVeiNrId(Long veiNrId);
     void deleteByVeiNrId(long veiNrId);
+
 }
