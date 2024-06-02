@@ -2,6 +2,7 @@ package com.curso.reservaveiculosapi.service.impl;
 
 import com.curso.reservaveiculosapi.model.entity.ImagemVeiculoEntity;
 import com.curso.reservaveiculosapi.model.entity.ReservaVeiculoEntity;
+import com.curso.reservaveiculosapi.model.entity.UsuarioEntity;
 import com.curso.reservaveiculosapi.model.entity.VeiculoEntity;
 import com.curso.reservaveiculosapi.repository.ImagemVeiculoRepository;
 import com.curso.reservaveiculosapi.repository.ReservaVeiculoRepository;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.net.FileNameMap;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -98,6 +100,9 @@ public class VeiculoServiceImpl implements VeiculoService {
 
     public ImagemVeiculoEntity getImagemById(Long imvNrId) {
         return imagemVeiculoRepository.findById(imvNrId).orElseThrow(() -> new RuntimeException("Imagem não encontrada: " + imvNrId));
+    }
+    public Optional<VeiculoEntity> findById(Long usuNrId) {
+        return veiculoRepository.findById(usuNrId);
     }
 
 }

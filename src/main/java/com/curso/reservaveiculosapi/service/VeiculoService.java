@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface VeiculoService {
     void cadastrarVeiculo(VeiculoEntity veiculoEntity);
@@ -23,4 +24,5 @@ public interface VeiculoService {
     List<ImagemVeiculoEntity> getImagensByVeiculoId(Long veiNrId);
     public ImagemVeiculoEntity getImagemById(Long imvNrId);
 
+    Optional<VeiculoEntity> findById(Long veiNrId);
 }

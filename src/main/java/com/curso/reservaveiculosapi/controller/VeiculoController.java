@@ -3,6 +3,7 @@ package com.curso.reservaveiculosapi.controller;
 import com.curso.reservaveiculosapi.model.dto.UsuarioDTO;
 import com.curso.reservaveiculosapi.model.entity.ImagemVeiculoEntity;
 import com.curso.reservaveiculosapi.model.entity.ReservaVeiculoEntity;
+import com.curso.reservaveiculosapi.model.entity.UsuarioEntity;
 import com.curso.reservaveiculosapi.model.entity.VeiculoEntity;
 import com.curso.reservaveiculosapi.service.VeiculoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @Tag(name = "Veículos", description = "Serviços para gerenciar os veículos")
@@ -111,4 +113,12 @@ public class VeiculoController {
         ImagemVeiculoEntity imagem = veiculoService.getImagemById(imvNrId);
         return ResponseEntity.ok(imagem);
     }
+    @GetMapping("/{veiNrId}")
+    @Operation(summary = "Buscar um veículo pelo seu ID", description = "Permite aos usuários buscar um veículo pelo seu ID")
+    public ResponseEntity<VeiculoEntity> findById(@PathVariable Long veiNrId) {
+        Optional<VeiculoEntity> userOptional = veiculoService.findById(veiNrId);
+        return userOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+
 }
