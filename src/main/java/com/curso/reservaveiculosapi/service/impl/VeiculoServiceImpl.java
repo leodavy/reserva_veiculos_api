@@ -1,5 +1,6 @@
 package com.curso.reservaveiculosapi.service.impl;
 
+import com.curso.reservaveiculosapi.model.dto.UsuarioDTO;
 import com.curso.reservaveiculosapi.model.entity.ImagemVeiculoEntity;
 import com.curso.reservaveiculosapi.model.entity.ReservaVeiculoEntity;
 import com.curso.reservaveiculosapi.model.entity.UsuarioEntity;
@@ -105,6 +106,13 @@ public class VeiculoServiceImpl implements VeiculoService {
         return veiculoRepository.findById(usuNrId);
     }
 
+    @Override
+    public List<ReservaVeiculoEntity> getReservasByUsuario(Long usuNrId) {
+        return reservaVeiculoRepository.findByUsuNrId(usuNrId);
+    }
+    public List<ReservaVeiculoEntity> getAllReservas() {
+        return reservaVeiculoRepository.findAll();
+    }
 }
 
 

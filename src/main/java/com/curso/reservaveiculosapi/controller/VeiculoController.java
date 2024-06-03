@@ -3,7 +3,6 @@ package com.curso.reservaveiculosapi.controller;
 import com.curso.reservaveiculosapi.model.dto.UsuarioDTO;
 import com.curso.reservaveiculosapi.model.entity.ImagemVeiculoEntity;
 import com.curso.reservaveiculosapi.model.entity.ReservaVeiculoEntity;
-import com.curso.reservaveiculosapi.model.entity.UsuarioEntity;
 import com.curso.reservaveiculosapi.model.entity.VeiculoEntity;
 import com.curso.reservaveiculosapi.service.VeiculoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,7 +32,7 @@ public class VeiculoController {
         return ResponseEntity.ok("Veículo cadastrado com sucesso!");
     }
 
-    @PutMapping("/{veiNrId}/atualizarVeiculo")
+    @PutMapping("/atualizarVeiculo/{veiNrId}/")
     @Operation(summary = "Atualizar veículo", description = "Permite aos usuários atualizar um veículo já cadastrado no sistema")
     public ResponseEntity<VeiculoEntity> atualizarVeiculo(
             @PathVariable Long veiNrId,
@@ -78,13 +77,13 @@ public class VeiculoController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/atualizarImagemVeiculo/{veiculoId}/{imvNrId}")
+    @PutMapping("/atualizarImagemVeiculo/{veiNrId}/{imvNrId}")
     @Operation(summary = "Atualizar imagem do Veículo", description = "Substitui uma imagem específica de um veículo")
-    public ResponseEntity<String> atualizarImagemVeiculo(@PathVariable Long veiculoId,
+    public ResponseEntity<String> atualizarImagemVeiculo(@PathVariable Long veiNrId,
                                                          @PathVariable Long imvNrId,
                                                          @RequestParam("imagem") MultipartFile imagem) {
         try {
-            veiculoService.atualizarImagemVeiculo(veiculoId, imvNrId, imagem);
+            veiculoService.atualizarImagemVeiculo(veiNrId, imvNrId, imagem);
             return ResponseEntity.ok("Imagem do veículo atualizada com sucesso.");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Erro ao atualizar imagem do veículo: " + e.getMessage());
@@ -119,6 +118,16 @@ public class VeiculoController {
         Optional<VeiculoEntity> userOptional = veiculoService.findById(veiNrId);
         return userOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-
-
+    @GetMapping("/reservas/{usuNrId}")
+    @Operation(summary = "Listar todas as reservas feitas por um usuário", description = "Permite aos usuários buscar todas as reservas")
+    public ResponseEntity<List<ReservaVeiculoEntity>> findReservasByUsuarioId(@PathVariable Long usuNrId) {
+        List<ReservaVeiculoEntity> reservas = veiculoService.getReservasByUsuario(usuNrId);
+        return ResponseEntity.ok(reservas);
+    }
+    @GetMapping("/reservas")
+    @Operation(summary = "Listar todas as reservas", description = "Permite aos usuários buscar todas as reservas")
+    public ResponseEntity<List<ReservaVeiculoEntity>> findAllReservas() {
+        List<ReservaVeiculoEntity> reservas = veiculoService.getAllReservas();
+        return ResponseEntity.ok(reservas);
+    }
 }

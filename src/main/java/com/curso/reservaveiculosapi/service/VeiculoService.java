@@ -4,7 +4,6 @@ import com.curso.reservaveiculosapi.model.dto.UsuarioDTO;
 import com.curso.reservaveiculosapi.model.entity.ImagemVeiculoEntity;
 import com.curso.reservaveiculosapi.model.entity.ReservaVeiculoEntity;
 import com.curso.reservaveiculosapi.model.entity.VeiculoEntity;
-import jakarta.transaction.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -23,6 +22,7 @@ public interface VeiculoService {
     void excluirVeiculo(Long veiNrId);
     List<ImagemVeiculoEntity> getImagensByVeiculoId(Long veiNrId);
     public ImagemVeiculoEntity getImagemById(Long imvNrId);
-
     Optional<VeiculoEntity> findById(Long veiNrId);
+    List<ReservaVeiculoEntity>getReservasByUsuario(Long usuNrId);
+    List<ReservaVeiculoEntity> getAllReservas();
 }
