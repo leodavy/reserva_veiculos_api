@@ -28,7 +28,7 @@ public class VeiculoController {
     @PostMapping("/cadastrarVeiculo")
     @Operation(summary = "Cadastrar veículo", description = "Permite aos usuários cadastrar um veículo no sistema")
     public ResponseEntity<String> cadastrarVeiculo(@RequestBody VeiculoEntity veiculo) {
-        veiculoService.cadastrarVeiculo(veiculo);
+        veiculoService.cadastrarVeiculo(veiculo, veiculo.getUsuNrId());
         return ResponseEntity.ok("Veículo cadastrado com sucesso!");
     }
 

@@ -23,4 +23,6 @@ public class VeiculoEntity {
     String veiTxMarca;
     @Column(name = "vei_tx_tipo")
     String veiTxTipo;
+    @Column(name = "usu_nr_id")
+    Long usuNrId;
 }

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface VeiculoService {
-    void cadastrarVeiculo(VeiculoEntity veiculoEntity);
+    void cadastrarVeiculo(VeiculoEntity veiculoEntity, Long usuNrId);
     VeiculoEntity atualizarVeiculo(VeiculoEntity veiculoEntity, long veiNrId);
     ReservaVeiculoEntity reservarVeiculo(long veiNrId, long usuNrId, Date vusDtDate);
     List<VeiculoEntity> listarVeiculos();

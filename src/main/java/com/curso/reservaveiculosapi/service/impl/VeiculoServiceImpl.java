@@ -7,6 +7,7 @@ import com.curso.reservaveiculosapi.model.entity.UsuarioEntity;
 import com.curso.reservaveiculosapi.model.entity.VeiculoEntity;
 import com.curso.reservaveiculosapi.repository.ImagemVeiculoRepository;
 import com.curso.reservaveiculosapi.repository.ReservaVeiculoRepository;
+import com.curso.reservaveiculosapi.repository.UsuarioRepository;
 import com.curso.reservaveiculosapi.repository.VeiculoRepository;
 import com.curso.reservaveiculosapi.service.VeiculoService;
 import jakarta.transaction.Transactional;
@@ -27,12 +28,13 @@ public class VeiculoServiceImpl implements VeiculoService {
     private final VeiculoRepository veiculoRepository;
     private final ReservaVeiculoRepository reservaVeiculoRepository;
     private final ImagemVeiculoRepository imagemVeiculoRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    @Override
-    public void cadastrarVeiculo(VeiculoEntity veiculoEntity) {
+    public void cadastrarVeiculo(VeiculoEntity veiculoEntity, Long usuNrId) {
+        Optional<UsuarioEntity> usuarioDTO = usuarioRepository.findById(usuNrId);
+        veiculoEntity.setUsuNrId(usuNrId);
         veiculoRepository.save(veiculoEntity);
     }
-
     @Transactional
     public VeiculoEntity atualizarVeiculo(VeiculoEntity veiculoAtualizado, long veiNrId) {
         VeiculoEntity veiculoExistente = veiculoRepository.findById(veiNrId).orElseThrow(() -> new RuntimeException("Veículo não encontrado, ID: " + veiNrId));
