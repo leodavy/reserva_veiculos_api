@@ -25,4 +25,5 @@ public interface VeiculoService {
     Optional<VeiculoEntity> findById(Long veiNrId);
     List<ReservaVeiculoEntity>getReservasByUsuario(Long usuNrId);
     List<ReservaVeiculoEntity> getAllReservas();
+    void excluirReserva(Long vusNrId);
 }

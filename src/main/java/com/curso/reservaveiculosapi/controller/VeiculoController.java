@@ -130,4 +130,11 @@ public class VeiculoController {
         List<ReservaVeiculoEntity> reservas = veiculoService.getAllReservas();
         return ResponseEntity.ok(reservas);
     }
+
+    @DeleteMapping("/excluirReserva/{vusNrId}")
+    @Operation(summary = "Excluir Reserva", description = "Exclui uma reserva do sistema")
+    public ResponseEntity<Void> excluirReserva(@PathVariable Long vusNrId) {
+        veiculoService.excluirReserva(vusNrId);
+        return ResponseEntity.noContent().build();
+    }
 }

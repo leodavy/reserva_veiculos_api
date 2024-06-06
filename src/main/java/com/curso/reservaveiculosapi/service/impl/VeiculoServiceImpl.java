@@ -115,6 +115,9 @@ public class VeiculoServiceImpl implements VeiculoService {
     public List<ReservaVeiculoEntity> getAllReservas() {
         return reservaVeiculoRepository.findAll();
     }
+    public void excluirReserva(Long vusNrId) {
+        reservaVeiculoRepository.deleteById(vusNrId);
+    }
 }
 
 
